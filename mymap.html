@@ -1566,7 +1566,7 @@ var eq_points = {
 { "type": "Feature", "properties": { "fid": 2422, "EV_DATE": 19030306, "EV_TIME": 141400.0, "LAT": 50.31, "LON": 12.33, "DEPTH": null, "DEP_COMM": null, "MAG": null, "MAG_TYPE": null, "INTENSITY": 3.0, "INT_SCALE": "MSK", "ISO_DATE": null, "ISO_TIME": "14:14:00.000", "PT_SIZE": 2.206, "EV_TYPE": "ke", "EXPL_DE": "tektonisch", "EXPL_EN": "known earthquake", "SOURCE": "LEY11", "EV_ID": 2417 }, "geometry": { "type": "Point", "coordinates": [ 12.33, 50.31 ] } }	
 	]
 }
-
+//name is random für variable: hat verschiedene Eigenschaften, Füllfarbe, -> google andere farben, color: Randfarbe, opacity ist durchsichtigkeit vom rand, und fillOpacity: 60% durchsichtigkeit der kreise
 	var orangeMarker = {
 				radius:8,
 				fillColor: "#ff7800",
@@ -1581,6 +1581,11 @@ var eq_points = {
 			"Open Topo Map": OpenTopoMap,
 			"Open Street Map HOT": OpenStreetMap_HOT
 		};
+		//Do the same with the Overlay features
+		//var overlays = {
+		//"Earthquakes in Germany": overlay_eq_points,
+		//};
+		//Add them to your Layer Control
 		
 	var legend = L.control.layers(basemaps, null,{collapsed: false, position: "bottomright"}).addTo(mymap); 
 	var scale = L.control.scale({maxWidth: 150, metric: true, imperial: true, position: "bottomleft"}).addTo(mymap); 
@@ -1589,5 +1594,15 @@ var eq_points = {
 	pointToLayer: function (feature, latlng) {
 	return L.circleMarker(latlng, orangeMarker);
 	}}).addTo(mymap);
+		// leatlet funktion: L.circle -> generiert vektoren, es gibt auch square marker, linke marker -> haben andere Einstellung -> über dokumentation auffindbar
 		
+		
+		var wmsLayer = L.tileLayer.wms("http://sg.geodatenzentrum.de/wms_dtk1000", {
+		layers: "dtk1000!,
+		format: "image/png",
+		transparent: true,
+		attribution: "SG.Geodatenzentrum"
+		})addTo(mymap);
+
+		wmsOptions).addTo(mymap);
 </script>
