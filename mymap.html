@@ -1576,19 +1576,7 @@ var eq_points = {
 				fillOpacity: 0.6
 				};
 	
-	var basemaps = {
-			"Open Street Map DE": osm_basemap,
-			"Open Topo Map": OpenTopoMap,
-			"Open Street Map HOT": OpenStreetMap_HOT
-		};
-		//Do the same with the Overlay features
-		//var overlays = {
-		//"Earthquakes in Germany": overlay_eq_points,
-		//};
-		//Add them to your Layer Control
-		
-	var legend = L.control.layers(basemaps, null,{collapsed: false, position: "bottomright"}).addTo(mymap); 
-	var scale = L.control.scale({maxWidth: 150, metric: true, imperial: true, position: "bottomleft"}).addTo(mymap); 
+	
 	
 	var overlay_eq_points = L.geoJSON(eq_points, {
 	pointToLayer: function (feature, latlng) {
@@ -1597,12 +1585,27 @@ var eq_points = {
 		// leatlet funktion: L.circle -> generiert vektoren, es gibt auch square marker, linke marker -> haben andere Einstellung -> über dokumentation auffindbar
 		
 		
-		var wmsLayer = L.tileLayer.wms("http://sg.geodatenzentrum.de/wms_dtk1000", {
-		layers: "dtk1000!,
+		var overlay_DTK1000 = L.tileLayer.wms("http://sg.geodatenzentrum.de/wms_dtk1000", {
+		layers: "dtk1000",
 		format: "image/png",
 		transparent: true,
 		attribution: "SG.Geodatenzentrum"
-		})addTo(mymap);
+		});
+overlay_DTK1000.addTo(mymap)
 
 		wmsOptions).addTo(mymap);
+		var basemaps = {
+			"Open Street Map DE": osm_basemap,
+			"Open Topo Map": OpenTopoMap,
+			"Open Street Map HOT": OpenStreetMap_HOT
+		};
+		//Do the same with the Overlay features
+		var overlays = {
+		"Earthquakes in Germany": overlay_eq_points,
+		"Topo Map 1:1 Mio": overlay_DTK1000};
+		
+		//Add them to your Layer Control
+		
+	var legend = L.control.layers(basemaps, overlays, null,{collapsed: false, position: "bottomright"}).addTo(mymap); 
+	var scale = L.control.scale({maxWidth: 150, metric: true, imperial: true, position: "bottomleft"}).addTo(mymap); 
 </script>
